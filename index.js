@@ -92,6 +92,7 @@ app.post("/fooddelete", async (request, response) => {
 
 });
 app.get("/foodi/:id", async (request, response) => {
+  
   console.log(request.params.id)
   try {
    const food= await foodModel.findById(request.params.id);
@@ -120,33 +121,34 @@ const storage = multer.diskStorage({
 })
 
 app.post('/imageupload', async (req, res) => {	
+   const classifiedsadd = {
+      image: req.file.filename
+    };
    console.log(classifiedsadd)
-//   try {
-//       // 'avatar' is the name of our file input field in the HTML form
+  try {
+      // 'avatar' is the name of our file input field in the HTML form
 
-//       let upload = multer({ storage: storage}).single('avatar');
+      let upload = multer({ storage: storage}).single('avatar');
 
-//       upload(req, res, function(err) {
-//           // req.file contains information of uploaded file
-//           // req.body contains information of text fields
+      upload(req, res, function(err) {
+          // req.file contains information of uploaded file
+          // req.body contains information of text fields
 
-//           if (!req.file) {
-//               return res.send('Please select an image to upload');
-//           }
-//           else if (err instanceof multer.MulterError) {
-//               return res.send(err);
-//           }
-//           else if (err) {
-//               return res.send(err);
-//           }
+          if (!req.file) {
+              return res.send('Please select an image to upload');
+          }
+          else if (err instanceof multer.MulterError) {
+              return res.send(err);
+          }
+          else if (err) {
+              return res.send(err);
+          }
 
-//           const classifiedsadd = {
-//       image: req.file.filename
-//     };
-//     console.log(classifiedsadd)
-//       res.json({ success: 1 })       
-//       }); 
-//   }catch (err) {console.log(err)}
+      
+    console.log(classifiedsadd)
+      res.json({ success: 1 })       
+      }); 
+  }catch (err) {console.log(err)}
 })
 
 
